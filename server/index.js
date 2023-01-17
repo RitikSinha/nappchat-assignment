@@ -9,6 +9,8 @@ dotenv.config();
 // importing all the routes
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
+const conversationRoute = require("./routes/conversations");
+const messageRoute = require("./routes/messages");
 
 mongoose.connect(
   process.env.MONGO_URL,
@@ -25,6 +27,8 @@ app.use(cors());
 //routes
 app.use("/api/auth", authRoute);
 app.use("/api/users", userRoute);
+app.use("/api/conversations", conversationRoute);
+app.use("/api/messages", messageRoute);
 
 app.get("/", (req, res) => {
   res.send("app is running!");
