@@ -1,1 +1,1 @@
-export const baseUrl = "http://localhost:8800/api";
+export const baseUrl = "https://noappchat-api.onrender.com/api";
