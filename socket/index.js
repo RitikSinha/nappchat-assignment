@@ -2,7 +2,7 @@ const PORT = process.env.PORT || 8900;
 const io = require("socket.io")(PORT, {
   cors: {
     // origin: "http://localhost:3000",
-    origin: "https://noappchat-react.onrender.com/",
+    origin: "https://nochatapp.netlify.app/",
   },
 });
 
