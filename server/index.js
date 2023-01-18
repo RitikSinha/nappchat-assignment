@@ -9,8 +9,8 @@ dotenv.config();
 // importing all the routes
 const userRoute = require("./routes/users");
 const authRoute = require("./routes/auth");
-const conversationRoute = require("./routes/conversations");
-const messageRoute = require("./routes/messages");
+const conversationRoute = require("./routes/conversation");
+const messageRoute = require("./routes/message");
 
 mongoose.connect(
   process.env.MONGO_URL,
@@ -33,7 +33,7 @@ app.use("/api/messages", messageRoute);
 app.get("/", (req, res) => {
   res.send("app is running!");
 });
-
-app.listen(8800, () => {
+const PORT = process.env.PORT || 8800;
+app.listen(PORT, () => {
   console.log("Backend server is running!");
 });

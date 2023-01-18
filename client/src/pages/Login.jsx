@@ -62,7 +62,7 @@ const Login = () => {
 
             <p className="text-sm">
               Not a member{" "}
-              <Link href="/register">
+              <Link to="/signup">
                 {" "}
                 <span className=" text-green-500">Sign Up</span>{" "}
               </Link>

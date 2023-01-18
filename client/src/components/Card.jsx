@@ -1,6 +1,21 @@
-import React from "react";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { baseUrl } from "../helper/base";
+const Card = ({ currentUser, conversation }) => {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    const friendId = conversation.members.find((m) => m !== currentUser?._id);
 
-const Card = ({ name }) => {
+    const getUser = async () => {
+      try {
+        const res = await axios(`${baseUrl}/users?userId=` + friendId);
+        setUser(res.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    getUser();
+  }, [currentUser, conversation]);
   return (
     <div className="flex items-center bg-slate-50 mb-2">
       <div className="avatar">
@@ -9,7 +24,7 @@ const Card = ({ name }) => {
         </div>
       </div>
       <div className="card-body">
-        <h2 className="card-title">{name}</h2>
+        <h2 className="card-title">{user?.username}</h2>
       </div>
     </div>
   );
