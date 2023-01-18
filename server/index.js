@@ -7,10 +7,10 @@ const cors = require("cors");
 dotenv.config();
 
 // importing all the routes
-const userRoute = require("./routes/users");
+const userRoute = require("./routes/Users");
 const authRoute = require("./routes/auth");
-const conversationRoute = require("./routes/conversation");
-const messageRoute = require("./routes/message");
+const conversationRoute = require("./routes/Conversation");
+const messageRoute = require("./routes/Message");
 
 mongoose.connect(
   process.env.MONGO_URL,
