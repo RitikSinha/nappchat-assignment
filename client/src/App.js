@@ -19,7 +19,7 @@ function App() {
   const socket = useRef();
   const scrollRef = useRef();
   useEffect(() => {
-    socket.current = io("ws://localhost:8900");
+    socket.current = io("ws://noappchat-socket.onrender.com");
     socket.current.on("getMessage", (data) => {
       setArrivalMessage({
         sender: data.senderId,
