@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Card from "./components/Card";
 import { AuthContext } from "./context/AuthContex";
@@ -18,6 +18,7 @@ function App() {
   const [newMessage, setNewMessage] = useState("");
   const socket = useRef();
   const scrollRef = useRef();
+
   useEffect(() => {
     socket.current = io("https://noappchat-socket.onrender.com/");
     socket.current.on("getMessage", (data) => {
@@ -38,10 +39,7 @@ function App() {
   useEffect(() => {
     socket.current.emit("addUser", user?._id);
   }, [user]);
-  useEffect(() => {
-    const user = localStorage.getItem("user");
-    if (!user) return navigate("/login");
-  });
+
   useEffect(() => {
     const getConversations = async () => {
       try {
@@ -140,12 +138,6 @@ function App() {
               <Card conversation={c} currentUser={user} />
             </div>
           ))}
-          <button
-            className=" fixed bottom-0 btn-accent btn-md mb-5 "
-            onClick={signOut}
-          >
-            logout
-          </button>
         </div>
         <div className="w-3/4 pb-32">
           {currentChat ? (
@@ -179,17 +171,36 @@ function App() {
               </div>
             </>
           ) : (
-            <h1 className="text-3xl text-center">
-              {" "}
-              No chats. Say hi to your friends!
-            </h1>
+            <>
+              {user ? (
+                <h1 className="text-3xl text-center">
+                  {" "}
+                  Hey {user.username}!. Say hi to your friends!{" "}
+                </h1>
+              ) : (
+                <Link
+                  to="/login"
+                  className="text-3xl text-center text-blue-400"
+                >
+                  <button onClick={signOut}>
+                    Please Sign In to Use the App
+                  </button>
+                </Link>
+              )}
+            </>
           )}
         </div>
         <div className="w-1/3 bg-slate-200 p-2">
-          <h1 className="text-2xl">All Users</h1>
-          {allusers.map((c) => (
-            <h1 onClick={(e) => handleConversation(e, c)}>{c.username}</h1>
-          ))}
+          {user ? (
+            <>
+              <h1 className="text-2xl">All Users</h1>
+              {allusers.map((c) => (
+                <h1 onClick={(e) => handleConversation(e, c)}>{c.username}</h1>
+              ))}
+            </>
+          ) : (
+            <></>
+          )}
         </div>
       </div>
     </div>
